@@ -1,12 +1,13 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
 import TmdbPage from "./screens/TmdbPage";
+import Omdb from './src/screens/Omdb/Omdb';
 
 export default function App() {
   return (
     <View style={styles.container}>
       <TmdbPage />
-      <Text>Open up App.js to start working on your app!</Text>
+      <Omdb />
       <StatusBar style="auto" />
     </View>
   );
