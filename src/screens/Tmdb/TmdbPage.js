@@ -1,6 +1,6 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import ListCard from "../components/ListCard";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import ListCard from '../../components/ListCard';
 
 const TmdbPage = () => {
   const [infos, setInfos] = useState([]);
