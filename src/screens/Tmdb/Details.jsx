@@ -1,32 +1,12 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import {
-  BookmarkSimple,
-  CalendarBlank,
-  CaretLeft,
-  Clock,
-  DotsThreeVertical,
-  Star,
-} from "phosphor-react-native";
-import { useContext, useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-
-import { MovieContext } from "../../context/MoviesContext";
+import { useEffect, useState } from "react";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import axios from "axios";
 
-export function Details() {
+const Details = () => {
   const [movieDetails, setMovieDetails] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { addFavoriteMovie, removeFavoriteMovie, favoriteMovies } =
-    useContext(MovieContext);
 
   const route = useRoute();
   const { movieId } = route.params;
@@ -36,7 +16,9 @@ export function Details() {
     const fetchMovieDetails = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`/movie/${movieId}`);
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/${movieId}?api_key=343c0cc8f2eba1f7ced8409cc651090f&language=pt-BR`
+        );
         setMovieDetails(response.data);
         setLoading(false);
       } catch (error) {
@@ -58,26 +40,6 @@ export function Details() {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => goBack()}>
-          <CaretLeft color="#fff" size={32} weight="thin" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Detalhes</Text>
-        <TouchableOpacity
-          onPress={() => {
-            favoriteMovies.includes(movieId)
-              ? removeFavoriteMovie(movieDetails.id)
-              : addFavoriteMovie(movieDetails.id);
-          }}
-        >
-          <BookmarkSimple
-            color="#fff"
-            size={32}
-            weight={favoriteMovies.includes(movieId) ? "fill" : "light"}
-          />
-        </TouchableOpacity>
-      </View>
-      {loading && <ActivityIndicator size={50} color="#0296E5" />}
       {!loading && (
         <ScrollView>
           <Image
@@ -96,33 +58,16 @@ export function Details() {
 
           <View style={styles.description}>
             <View style={styles.descriptionGroup}>
-              <CalendarBlank color="#92929D" size={25} weight="thin" />
               <Text style={styles.descriptionText}>
                 {getYear(movieDetails.release_date)}
               </Text>
             </View>
-            <DotsThreeVertical color="#92929D" size={32} weight="duotone" />
             <View style={styles.descriptionGroup}>
-              <Clock color="#92929D" size={25} weight="thin" />
               <Text style={styles.descriptionText}>
                 {movieDetails.runtime} Minutos
               </Text>
             </View>
-            <DotsThreeVertical color="#92929D" size={32} weight="duotone" />
             <View style={styles.descriptionGroup}>
-              <Star
-                color={
-                  movieDetails.vote_average.toFixed(2) >= "7"
-                    ? "#FF8700"
-                    : "#92929D"
-                }
-                size={25}
-                weight={
-                  movieDetails.vote_average.toFixed(2) >= "7"
-                    ? "duotone"
-                    : "thin"
-                }
-              />
               <Text
                 style={[
                   movieDetails.vote_average.toFixed(2) >= "7"
@@ -146,7 +91,9 @@ export function Details() {
       )}
     </View>
   );
-}
+};
+
+export default Details;
 
 export const styles = StyleSheet.create({
   container: {
@@ -180,10 +127,10 @@ export const styles = StyleSheet.create({
   },
   stars: {
     position: "absolute",
-    height: 50,
+    height: 60,
     left: 140,
     right: 32,
-    top: 240,
+    top: 230,
     color: "#fff",
     fontSize: 18,
     lineHeight: 27,

@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
-import Header from "../../components/Header";
 import ListCard from "../../components/ListCard";
 
-const TmdbPage = () => {
+const TmdbPage = ({ navigation }) => {
   const [infos, setInfos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -30,8 +29,7 @@ const TmdbPage = () => {
 
   return (
     <View>
-      <Header />
-      <ListCard listMovies={infos} />
+      <ListCard listMovies={infos} navigation={navigation} />
     </View>
   );
 };

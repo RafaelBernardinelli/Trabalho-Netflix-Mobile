@@ -1,23 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-import Omdb from './src/screens/Omdb/Omdb';
-import TmdbPage from './src/screens/Tmdb/TmdbPage';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
+import Details from "./src/screens/Tmdb/Details";
+import TmdbPage from "./src/screens/Tmdb/TmdbPage";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <TmdbPage />
-      <Omdb />
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Recomendados" component={TmdbPage} />
+        <Stack.Screen name="Detalhes" component={Details} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
