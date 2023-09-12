@@ -1,13 +1,21 @@
-import { FlatList, View } from "react-native";
-import CardMovies from "./CardMovies";
+import { FlatList, View } from 'react-native';
+import CardMovies from './CardMovies';
 
-const ListCard = ({ listMovies, navigation }) => {
+const ListCard = ({ listMovies, navigation, search }) => {
   const navi = (item) => {
-    navigation.navigate("Detalhes", { movieId: item.id });
+    if (!search) navigation.navigate('Detalhes', { movieId: item.id });
+    else navigation.navigate('Detalhes', { movieId: item.imdbID });
   };
 
   const renderMovieItem = ({ item }) => {
-    return <CardMovies data={item} onPress={() => navi(item)} />;
+    if (!search)
+      return (
+        <CardMovies
+          onPress={() => navi(item)}
+          image={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+        />
+      );
+    return <CardMovies onPress={() => navi(item)} image={item.Poster} />;
   };
 
   return (
