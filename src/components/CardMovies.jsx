@@ -1,11 +1,11 @@
-import { Image, Pressable, StyleSheet } from "react-native";
+import { Image, Pressable, StyleSheet } from 'react-native';
 
-const CardMovies = ({ data, ...rest }) => {
+const CardMovies = ({ image, ...rest }) => {
   return (
     <Pressable {...rest} style={styles.cardMovies}>
       <Image
         source={{
-          uri: `https://image.tmdb.org/t/p/w500${data.poster_path}`,
+          uri: image,
         }}
         style={styles.cardImage}
       />
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginHorizontal: 5,
     marginBottom: 10,
-    backgroundColor: "#424242",
+    backgroundColor: '#424242',
   },
 });
 
