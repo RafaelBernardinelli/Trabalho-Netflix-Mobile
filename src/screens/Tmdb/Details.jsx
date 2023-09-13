@@ -1,4 +1,4 @@
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
@@ -10,7 +10,6 @@ const Details = () => {
 
   const route = useRoute();
   const { movieId } = route.params;
-  const { goBack } = useNavigation();
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -20,7 +19,6 @@ const Details = () => {
           `https://api.themoviedb.org/3/movie/${movieId}?api_key=343c0cc8f2eba1f7ced8409cc651090f&language=pt-BR`
         );
         setMovieDetails(response.data);
-        setLoading(false);
       } catch (error) {
         console.error(error);
         setLoading(false);
@@ -31,8 +29,8 @@ const Details = () => {
   }, [movieId]);
 
   function getYear(data) {
-    const ano = new Date(data).getFullYear();
-    return ano;
+    const year = new Date(data).getFullYear();
+    return year;
   }
 
   if (!movieDetails) {

@@ -3,7 +3,7 @@ import CardMovies from "./CardMovies";
 
 const ListCard = ({ listMovies, navigation }) => {
   const navi = (item) => {
-    navigation.navigate("Detalhes", { movieId: item.id });
+    navigation.navigate("Settings", { movieId: item.id });
   };
 
   const renderMovieItem = ({ item }) => {
