@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import CustomButton from '../../components/CustomButton';
 import ListCard from '../../components/ListCard';
 
 const TmdbPage = ({ navigation }) => {
@@ -30,10 +29,6 @@ const TmdbPage = ({ navigation }) => {
 
   return (
     <View>
-      <CustomButton
-        title="Pesquisa"
-        onPress={() => navigation.navigate("Pesquisa")}
-      />
       <ListCard listMovies={infos} navigation={navigation} />
     </View>
   );
