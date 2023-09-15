@@ -15,12 +15,14 @@ const CardMovies = ({ image, ...rest }) => {
 
 const styles = StyleSheet.create({
   cardImage: {
-    width: 190,
+    width: 170,
     height: 300,
     borderRadius: 15,
+    borderColor: '#fff',
+    borderWidth: 1,
   },
   cardMovies: {
-    width: 190,
+    width: 170,
     height: 300,
     borderRadius: 15,
     marginHorizontal: 5,

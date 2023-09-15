@@ -20,7 +20,8 @@ const Omdb = ({ navigation }) => {
 
   const searchMovies = async () => {
     try {
-      if (search === '' || search === undefined) return setEmptyMessage(true);
+      if (search === '' || search === undefined || search === null)
+        return setEmptyMessage(true);
       const data = await axios.get(
         `http://www.omdbapi.com/?s=${search}?&apikey=70898e1d`
       );
@@ -39,7 +40,6 @@ const Omdb = ({ navigation }) => {
   useEffect(() => {
     if (search === '' || search === undefined) {
       setMoviesFound(undefined);
-      setNotFound(false);
     }
     if (search) setEmptyMessage(false);
   }, [search]);
@@ -56,6 +56,11 @@ const Omdb = ({ navigation }) => {
         {emptyMessage && (
           <Text style={styles.warnMessage}>
             Digite um filme para pesquisar...
+          </Text>
+        )}
+        {notFound && (
+          <Text style={styles.notFound}>
+            Desculpe, não conseguimos encontrar o filme pesquisado :(
           </Text>
         )}
         <View
@@ -81,16 +86,13 @@ const Omdb = ({ navigation }) => {
           />
         </View>
 
-        <ListCard
-          listMovies={moviesFound}
-          navigation={navigation}
-          search={true}
-        />
-        {notFound && (
-          <Text style={styles.notFound}>
-            Desculpe, não conseguimos encontrar o filme pesquisado :(
-          </Text>
-        )}
+        <View style={styles.page}>
+          <ListCard
+            listMovies={moviesFound}
+            navigation={navigation}
+            search={true}
+          />
+        </View>
       </View>
     </>
   );
@@ -99,10 +101,6 @@ const Omdb = ({ navigation }) => {
 export default Omdb;
 
 export const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
   input: {
     borderWidth: 1,
     borderRadius: 4,
@@ -124,8 +122,15 @@ export const styles = StyleSheet.create({
   notFound: {
     fontSize: 16,
     textAlign: 'center',
-    paddingTop: 90,
+    paddingTop: 0,
     fontWeight: 'bold',
     padding: 20,
+  },
+  page: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 20,
+    backgroundColor: 'black',
   },
 });

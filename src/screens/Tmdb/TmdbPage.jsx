@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import ListCard from '../../components/ListCard';
 
 const TmdbPage = ({ navigation }) => {
@@ -28,10 +28,20 @@ const TmdbPage = ({ navigation }) => {
   }, [page]);
 
   return (
-    <View>
+    <View style={styles.page}>
       <ListCard listMovies={infos} navigation={navigation} />
     </View>
   );
 };
 
 export default TmdbPage;
+
+const styles = StyleSheet.create({
+  page: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 20,
+    backgroundColor: 'black',
+  },
+});
