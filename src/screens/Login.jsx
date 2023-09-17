@@ -24,10 +24,13 @@ const Login = () => {
       >
         <View style={styles.loginContainer}>
           <View style={styles.loginFocus}>
-            <Image
-              style={styles.logoNetflix}
-              source={require('../../assets/netflix-removebg-preview.png')}
-            />
+            <View style={{ paddingBottom: 50}}>
+              <Image
+                style={styles.logoNetflix}
+                source={require('../../assets/netflix-removebg-preview.png')}
+              />
+            </View>
+
             <TextInput
               placeholder="Email or Phone number"
               style={styles.textInput}
@@ -63,6 +66,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
+    gap: 20,
   },
   textInput: {
     backgroundColor: 'white',
