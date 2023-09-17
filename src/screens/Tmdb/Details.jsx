@@ -2,8 +2,9 @@ import { useRoute } from "@react-navigation/native";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import CustomButton from "../../components/CustomButton";
 
-const Details = () => {
+const Details = ({ navigation }) => {
   const [movieDetails, setMovieDetails] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -30,66 +31,84 @@ const Details = () => {
     fetchMovieDetails();
   }, [movieId]);
 
-  function getYear(data) {
+  const getYear = (data) => {
     const year = new Date(data).getFullYear();
     return year;
-  }
+  };
 
-  if (!movieDetails) {
-    return null;
-  }
+  const navigationToMovies = () => {
+    navigation.navigate("Recomendados");
+  };
+
   return (
     <View style={styles.container}>
-      {!loading ? (
-        <ScrollView>
-          <Image
-            source={{
-              uri: `https://image.tmdb.org/t/p/w500${movieDetails.backdrop_path}`,
-            }}
-            style={styles.detailsImage}
+      {!movieDetails ? (
+        <View>
+          <Text style={{ color: "#fff", textAlign: "center" }}>
+            Nenhum filme selecionado para ver detalhes
+          </Text>
+          <CustomButton
+            title={"Clique aqui para escolher um filme"}
+            width={300}
+            backgroundColor={"red"}
+            color={"#fff"}
+            onPress={navigationToMovies}
           />
-          <Image
-            source={{
-              uri: `https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`,
-            }}
-            style={styles.detailsPosterImage}
-          />
-          <Text style={styles.stars}>{movieDetails.title}</Text>
-
-          <View style={styles.description}>
-            <View style={styles.descriptionGroup}>
-              <Text style={styles.descriptionText}>
-                {getYear(movieDetails.release_date)}
-              </Text>
-            </View>
-            <View style={styles.descriptionGroup}>
-              <Text style={styles.descriptionText}>
-                {movieDetails.runtime} Minutos
-              </Text>
-            </View>
-            <View style={styles.descriptionGroup}>
-              <Text
-                style={[
-                  movieDetails.vote_average.toFixed(2) >= "7"
-                    ? styles.descriptionText1
-                    : styles.descriptionText,
-                ]}
-              >
-                {movieDetails.vote_average.toFixed(1)}
-              </Text>
-            </View>
-          </View>
-
-          <View style={styles.about}>
-            <Text style={styles.aboutText}>
-              {movieDetails.overview === ""
-                ? "Ops! Parece que esse filme ainda não tem sinopse :-("
-                : movieDetails.overview}
-            </Text>
-          </View>
-        </ScrollView>
+        </View>
       ) : (
-        <Text style={styles.loading}>Carregando...</Text>
+        <>
+          {!loading ? (
+            <ScrollView>
+              <Image
+                source={{
+                  uri: `https://image.tmdb.org/t/p/w500${movieDetails.backdrop_path}`,
+                }}
+                style={styles.detailsImage}
+              />
+              <Image
+                source={{
+                  uri: `https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`,
+                }}
+                style={styles.detailsPosterImage}
+              />
+              <Text style={styles.stars}>{movieDetails.title}</Text>
+
+              <View style={styles.description}>
+                <View style={styles.descriptionGroup}>
+                  <Text style={styles.descriptionText}>
+                    {getYear(movieDetails.release_date)}
+                  </Text>
+                </View>
+                <View style={styles.descriptionGroup}>
+                  <Text style={styles.descriptionText}>
+                    {movieDetails.runtime} Minutos
+                  </Text>
+                </View>
+                <View style={styles.descriptionGroup}>
+                  <Text
+                    style={[
+                      movieDetails.vote_average.toFixed(2) >= "7"
+                        ? styles.descriptionText1
+                        : styles.descriptionText,
+                    ]}
+                  >
+                    {movieDetails.vote_average.toFixed(1)}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.about}>
+                <Text style={styles.aboutText}>
+                  {movieDetails.overview === ""
+                    ? "Ops! Parece que esse filme ainda não tem sinopse :-("
+                    : movieDetails.overview}
+                </Text>
+              </View>
+            </ScrollView>
+          ) : (
+            <Text style={styles.loading}>Carregando...</Text>
+          )}
+        </>
       )}
     </View>
   );
