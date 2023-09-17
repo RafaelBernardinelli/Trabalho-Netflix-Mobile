@@ -1,7 +1,7 @@
-import { useRoute } from '@react-navigation/native';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useRoute } from "@react-navigation/native";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 const Details = () => {
   const [movieDetails, setMovieDetails] = useState(null);
@@ -40,7 +40,7 @@ const Details = () => {
   }
   return (
     <View style={styles.container}>
-      {!loading && (
+      {!loading ? (
         <ScrollView>
           <Image
             source={{
@@ -70,7 +70,7 @@ const Details = () => {
             <View style={styles.descriptionGroup}>
               <Text
                 style={[
-                  movieDetails.vote_average.toFixed(2) >= '7'
+                  movieDetails.vote_average.toFixed(2) >= "7"
                     ? styles.descriptionText1
                     : styles.descriptionText,
                 ]}
@@ -82,12 +82,14 @@ const Details = () => {
 
           <View style={styles.about}>
             <Text style={styles.aboutText}>
-              {movieDetails.overview === ''
-                ? 'Ops! Parece que esse filme ainda não tem sinopse :-('
+              {movieDetails.overview === ""
+                ? "Ops! Parece que esse filme ainda não tem sinopse :-("
                 : movieDetails.overview}
             </Text>
           </View>
         </ScrollView>
+      ) : (
+        <Text style={styles.loading}>Carregando...</Text>
       )}
     </View>
   );
@@ -98,23 +100,26 @@ export default Details;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1E1E1E',
+    backgroundColor: "#1E1E1E",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   header: {
     paddingTop: 30,
     height: 115,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
   },
   headerText: {
-    color: '#fff',
-    fontWeight: '700',
+    color: "#fff",
+    fontWeight: "700",
     fontSize: 18,
   },
   detailsImage: {
-    position: 'absolute',
-    width: '100%',
+    position: "absolute",
+    width: "100%",
     height: 210,
   },
   detailsPosterImage: {
@@ -126,59 +131,63 @@ export const styles = StyleSheet.create({
     top: 140,
   },
   stars: {
-    position: 'absolute',
+    position: "absolute",
     height: 60,
     left: 140,
     right: 32,
     top: 230,
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
     lineHeight: 27,
-    fontWeight: '700',
+    fontWeight: "700",
   },
 
   description: {
-    width: '100%',
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center',
+    width: "100%",
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "center",
     marginTop: 170,
   },
 
   descriptionText: {
     marginLeft: 10,
-    color: '#92929D',
+    color: "#92929D",
   },
 
   descriptionText1: {
     marginLeft: 10,
-    color: '#FF8700',
+    color: "#FF8700",
   },
 
   descriptionGroup: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 2,
   },
   aboutMovie: {
-    width: '100%',
-    alignContent: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    width: "100%",
+    alignContent: "center",
+    flexDirection: "row",
+    justifyContent: "space-around",
     paddingTop: 20,
     paddingHorizontal: 20,
   },
   aboutMovieText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 14,
     lineHeight: 21,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   about: {
     padding: 20,
   },
   aboutText: {
-    color: '#fff',
-    textAlign: 'justify',
+    color: "#fff",
+    textAlign: "justify",
+  },
+
+  loading: {
+    color: "#fff",
   },
 });
