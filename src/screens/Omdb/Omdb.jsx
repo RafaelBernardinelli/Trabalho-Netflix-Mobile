@@ -115,7 +115,7 @@ export const styles = StyleSheet.create({
     marginLeft: 8,
   },
   errorMessage: {
-    color: '#ff1717',
+    color: '#db0000',
     fontSize: 12,
     marginLeft: 8,
   },

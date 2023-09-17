@@ -1,27 +1,39 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   Image,
   ImageBackground,
   StyleSheet,
+  Text,
   TextInput,
   View,
 } from 'react-native';
 import CustomButton from '../components/CustomButton';
 import { AuthContext } from '../context/Auth';
 
-const Login = () => {
-  const { setIsAuthenticated } = useContext(AuthContext);
+const Login = ({ navigation }) => {
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
 
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState(false);
+  const [emptyMessage, setEmptyMessage] = useState(false);
 
   const signIn = () => {
-    if (userName === 'usuario@email.com' && password === '123senha') {
+    if (userName === 'usuario@email.com.br' && password === '123senha')
       setIsAuthenticated(true);
+    else if (userName === '' || password === '') {
+      setErrorMsg(false);
+      setEmptyMessage(true);
     } else {
+      setEmptyMessage(false);
+      setErrorMsg(true);
       setIsAuthenticated(false);
     }
   };
+
+  useEffect(() => {
+    if (isAuthenticated) navigation.navigate('Recomendados');
+  }, [isAuthenticated]);
 
   const setFormUserName = (value) => {
     setUserName(value);
@@ -53,11 +65,22 @@ const Login = () => {
               onChangeText={setFormUserName}
             />
             <TextInput
+              secureTextEntry={true}
               placeholder="Senha"
               style={styles.textInput}
               value={password}
               onChangeText={setFormPassword}
             />
+            {errorMsg && (
+              <Text style={styles.errorMessage}>
+                Email ou senha inválidos, tente novamente.
+              </Text>
+            )}
+            {emptyMessage && (
+              <Text style={styles.warnMessage}>
+                Email ou senha não podem ser vazios, tente novamente.
+              </Text>
+            )}
             <CustomButton
               title="ENTRAR"
               onPress={signIn}
@@ -107,6 +130,16 @@ const styles = StyleSheet.create({
   logoNetflix: {
     width: 200,
     height: 80,
+  },
+  warnMessage: {
+    color: '#ff7f17',
+    fontSize: 12,
+    padding: 5,
+  },
+  errorMessage: {
+    color: '#db0000',
+    fontSize: 12,
+    padding: 5,
   },
 });
 

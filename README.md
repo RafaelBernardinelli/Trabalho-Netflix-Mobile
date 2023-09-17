@@ -5,9 +5,9 @@ Alunos: Ingrid R. Lopes de Oliveira e Rafael Bernardinelli
 
 # Iniciando projeto
 
-npm install
+npm install </br>
 npx expo start
 
 # Usuário e senha para acessar
-EMAIL: usuario@email.com.br
+EMAIL: usuario@email.com.br </br>
 SENHA: 123senha 
