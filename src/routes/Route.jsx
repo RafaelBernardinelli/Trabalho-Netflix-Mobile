@@ -16,16 +16,18 @@ const Route = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen
-          name="Login"
-          component={Login}
-          options={{
-            tabBarActiveTintColor: '#db0000',
-            tabBarIcon: () => (
-              <MaterialIcons name="login" size={24} color="black" />
-            ),
-          }}
-        />
+        {!isAuthenticated && (
+          <Tab.Screen
+            name="Login"
+            component={Login}
+            options={{
+              tabBarActiveTintColor: '#db0000',
+              tabBarIcon: () => (
+                <MaterialIcons name="login" size={24} color="black" />
+              ),
+            }}
+          />
+        )}
 
         {isAuthenticated && (
           <Tab.Screen

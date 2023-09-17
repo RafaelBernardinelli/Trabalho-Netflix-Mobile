@@ -1,17 +1,18 @@
-import { useRoute } from "@react-navigation/native";
-import { useEffect, useState } from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-
-import axios from "axios";
+import { useRoute } from '@react-navigation/native';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 const Details = () => {
   const [movieDetails, setMovieDetails] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const route = useRoute();
-  const { movieId } = route.params;
+  const { movieId } = route.params ?? -1;
 
   useEffect(() => {
+    if (movieId === undefined || movieId === -1) return;
+
     const fetchMovieDetails = async () => {
       try {
         setLoading(true);
@@ -21,6 +22,7 @@ const Details = () => {
         setMovieDetails(response.data);
       } catch (error) {
         console.error(error);
+      } finally {
         setLoading(false);
       }
     };
@@ -68,7 +70,7 @@ const Details = () => {
             <View style={styles.descriptionGroup}>
               <Text
                 style={[
-                  movieDetails.vote_average.toFixed(2) >= "7"
+                  movieDetails.vote_average.toFixed(2) >= '7'
                     ? styles.descriptionText1
                     : styles.descriptionText,
                 ]}
@@ -80,8 +82,8 @@ const Details = () => {
 
           <View style={styles.about}>
             <Text style={styles.aboutText}>
-              {movieDetails.overview === ""
-                ? "Ops! Parece que esse filme ainda não tem sinopse :-("
+              {movieDetails.overview === ''
+                ? 'Ops! Parece que esse filme ainda não tem sinopse :-('
                 : movieDetails.overview}
             </Text>
           </View>
@@ -96,7 +98,7 @@ export default Details;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1E1E1E",
+    backgroundColor: '#1E1E1E',
   },
   header: {
     paddingTop: 30,
