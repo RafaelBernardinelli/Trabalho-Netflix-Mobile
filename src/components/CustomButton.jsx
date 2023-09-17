@@ -5,7 +5,6 @@ const CustomButton = ({
   onPress,
   width = 120,
   height = 40,
-  disabled,
   backgroundColor,
   color,
 }) => {
@@ -21,7 +20,6 @@ const CustomButton = ({
         borderColor: '#111',
         borderWidth: 1
       }}
-      disabled={disabled}
     >
       <View
         style={{

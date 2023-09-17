@@ -5,18 +5,12 @@ export const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const signIn = ({ userName, password }) => {
-    if (userName === 'usuario@email.com' && password === '123senha')
-      setIsAuthenticated(true);
-    else setIsAuthenticated(false);
-  };
-
   const authContextValue = useMemo(
     () => ({
       isAuthenticated,
-      signIn,
+      setIsAuthenticated,
     }),
-    [signIn, isAuthenticated]
+    [isAuthenticated, setIsAuthenticated]
   );
 
   return (

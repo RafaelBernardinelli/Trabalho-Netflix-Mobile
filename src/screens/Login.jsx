@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   Image,
   ImageBackground,
@@ -6,15 +6,30 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import CustomButton from '../components/CustomButton';
+import { AuthContext } from '../context/Auth';
 
 const Login = () => {
-  const [loadingPage, setLoadingPage] = useState(true);
+  const { setIsAuthenticated } = useContext(AuthContext);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoadingPage(false);
-    }, 3000);
-  }, []);
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+
+  const signIn = () => {
+    if (userName === 'usuario@email.com' && password === '123senha') {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  };
+
+  const setFormUserName = (value) => {
+    setUserName(value);
+  };
+
+  const setFormPassword = (value) => {
+    setPassword(value);
+  };
 
   return (
     <View style={styles.container}>
@@ -24,7 +39,7 @@ const Login = () => {
       >
         <View style={styles.loginContainer}>
           <View style={styles.loginFocus}>
-            <View style={{ paddingBottom: 50}}>
+            <View style={{ paddingBottom: 50 }}>
               <Image
                 style={styles.logoNetflix}
                 source={require('../../assets/netflix-removebg-preview.png')}
@@ -32,10 +47,23 @@ const Login = () => {
             </View>
 
             <TextInput
-              placeholder="Email or Phone number"
+              placeholder="Email"
               style={styles.textInput}
+              value={userName}
+              onChangeText={setFormUserName}
             />
-            <TextInput placeholder="Password" style={styles.textInput} />
+            <TextInput
+              placeholder="Senha"
+              style={styles.textInput}
+              value={password}
+              onChangeText={setFormPassword}
+            />
+            <CustomButton
+              title="ENTRAR"
+              onPress={signIn}
+              backgroundColor="#db0000"
+              color="#ffff"
+            />
           </View>
         </View>
       </ImageBackground>
